@@ -1,8 +1,10 @@
 ---
 title: "An introduction to data analysis in R, and also to shark attacks"
+shorttitle: "R Tutorial - NetSI Bootcamp 2018"
 author:
 - affiliation: Network Science Institute
   name: Stefan McCabe
+  shortname: McCabe
 date: "August 2018"
 output:
   html_document: default
