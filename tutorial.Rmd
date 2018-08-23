@@ -417,12 +417,11 @@ Shark attacks were a big story on Political Science Twitter this summer.
 #### Cheat sheets
 The RStudio website has some terrific cheat sheets that I encourage everyone to bookmark (especially the data wrangling one, which I have to reference every time I use tidyr):
 
-- [Base R](https://github.com/rstudio/cheatsheets/blob/master/source/pdfs/base-r.pdf)
-- [ggplot2](https://github.com/rstudio/cheatsheets/blob/master/source/pdfs/ggplot2-cheatsheet-2.1.pdf)
-- [RMarkdown](https://github.com/rstudio/cheatsheets/blob/master/source/pdfs/rmarkdown-cheatsheet-2.0.pdf)
-- [RStudio IDE](https://github.com/rstudio/cheatsheets/blob/master/source/pdfs/rstudio-IDE-cheatsheet.pdf)
-- [Data Wrangling](https://github.com/rstudio/cheatsheets/blob/master/source/pdfs/data-wrangling-cheatsheet.pdf)
-- [Data Transformation](https://github.com/rstudio/cheatsheets/blob/master/source/pdfs/data-transformation-cheatsheet.pdf)
+- [Base R](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
+- [ggplot2](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+- [RMarkdown](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+- [RStudio IDE](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
+- [Data Transformation](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 
 #### Working in R
 If you're doing large-scale work in R, especially involving package development, here are some useful sources on development and R internals:
