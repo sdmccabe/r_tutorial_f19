@@ -90,19 +90,20 @@ RStudio is *the* IDE for R. Accept no substitutes.
 
 ### Preliminaries: A quick R-Python Rosetta Stone
 
-|                      | R                     | Python                              |
-|----------------------|-----------------------|-------------------------------------|
-| Assignment           | `<-`                  | `=`                                 |
-| Import               | `library(x)`          | `from x import *`                   |
-| Import               | N/A                   | `import x`                          |
-| Concetenation        | `c(x, y)`             | `[x] + [y]`                         |
-| String Concatenation | `paste('x', 'y')`     | `'x' + ' y'`                        |
-| Pipes                | `x %>% f(y)`          | `f(x, y)`                           |
-| Conditionals         | `ifelse(cond, 1, 2)`  | `if cond: 1; else: 2`               |
-| Package Installation | `install.packages(x)` | `pip install x`                     |
-| Vectorized Math      | `c(1, 2) + c(1, 2)`   | `np.array([1,2]) + np.array([1,2])` |
-|                      |                       |                                     |                     |                       |                       |
-
+|                        | R                      | Python                              |
+|------------------------|------------------------|-------------------------------------|
+| Assignment             | `<-`                   | `=`                                 |
+| Import (i)             | `library(x)`           | `from x import *`                   |
+| Import (ii)            | N/A                    | `import x`                          |
+| Calling Libraries (i)  | `library(lib); func()` | `from lib import func; func()`      |
+| Calling Libraries (ii) | `lib::func()`          | `import lib; lib.func()`            |
+| Concetenation          | `c(x, y)`              | `[x] + [y]`                         |
+| String Concatenation   | `paste('x', 'y')`      | `'x' + ' y'`                        |
+| Pipes                  | `x %>% f(y)`           | `f(x, y)`                           |
+| Conditionals           | `ifelse(cond, 1, 2)`   | `if cond: 1; else: 2`               |
+| Package Installation   | `install.packages(x)`  | `pip install x`                     |
+| Vectorized Math        | `c(1, 2) + c(1, 2)`    | `np.array([1,2]) + np.array([1,2])` |
+|                        |                        |                                     |                 
 
 # Getting the data
 
