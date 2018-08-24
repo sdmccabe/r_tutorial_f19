@@ -7,13 +7,13 @@ author:
   shortname: McCabe
 date: "August 2018"
 output:
-  html_document: default
   beamer_presentation:
     fig_height: 4
     fig_width: 8
     latex_engine: xelatex
     slide_level: 3
     template: ~/.pandoc/templates/beamer.template
+  html_document: default
 classoption: aspectratio=169
 ---
 # Overview
@@ -69,7 +69,6 @@ library(tidyverse)
 
 ### Preliminaries
 
-
 I gave a similar but drier tutorial last year; a copy of that document is
 [here](https://sdmccabe.github.io/r_tutorial_f18/resources/bootcamp_r_f17.html).
 If you have questions about R's bizarre and terrible type system, or why there
@@ -83,13 +82,26 @@ are so many `<-`s littered throughout the code, check it out.
 * readr and haven
 * devtools
 
-
-
 ### Preliminaries: RStudio
 RStudio is *the* IDE for R. Accept no substitutes.
 
 ### Preliminaries: RStudio
 [![](resources/rstudio.jpg)](http://wiki.awf.forst.uni-goettingen.de/wiki/index.php/Installation_and_Interface_of_R)
+
+### Preliminaries: A quick R-Python Rosetta Stone
+
+|                      | R                     | Python                              |
+|----------------------|-----------------------|-------------------------------------|
+| Assignment           | `<-`                  | `=`                                 |
+| Import               | `library(x)`          | `from x import *`                   |
+| Import               | N/A                   | `import x`                          |
+| Concetenation        | `c(x, y)`             | `[x] + [y]`                         |
+| String Concatenation | `paste('x', 'y')`     | `'x' + ' y'`                        |
+| Pipes                | `x %>% f(y)`          | `f(x, y)`                           |
+| Conditionals         | `ifelse(cond, 1, 2)`  | `if cond: 1; else: 2`               |
+| Package Installation | `install.packages(x)` | `pip install x`                     |
+| Vectorized Math      | `c(1, 2) + c(1, 2)`   | `np.array([1,2]) + np.array([1,2])` |
+|                      |                       |                                     |                     |                       |                       |
 
 
 # Getting the data
