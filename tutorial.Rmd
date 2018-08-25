@@ -460,3 +460,55 @@ Some good resources on structuring and approaching a data analysis project:
 
 #### Networks in R
 Katya Ognyanova, one of David's former postdocs, has a good [introduction to network analysis in R](http://kateto.net/networks-r-igraph) with `igraph`. 
+
+# Appendix
+
+### Okay, but how do I do all this in Python? {.allowframebreaks}
+
+```{r, echo = F}
+library(reticulate)
+reticulate::use_condaenv("base")
+```
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import seaborn as sns
+```
+
+```{python}
+py_sharks = pd.read_csv("https://sdmccabe.github.io/r_tutorial_f18/resources/shark.csv")
+py_ab_sharks = py_sharks.drop(py_sharks.index[6])
+py_m = smf.  \
+  ols("wilson1916 ~ wilson1912 + machine + beach", data = py_sharks).  \
+  fit()
+print(py_m.summary())
+```
+
+```{python}
+fig, ax = plt.subplots()
+py_sharks.hist('wilson1912', bins = np.arange(0.3, 0.6, 0.01), ax = ax)
+plt.show()
+```
+
+
+```{python}
+fig2, ax2 = plt.subplots()
+sns.regplot(py_sharks['wilson1912'], py_sharks['wilson1916'], ax = ax2)
+plt.show()
+```
+
+```{python}
+fig3, ax3 = plt.subplots()
+sns.pointplot(y=py_sharks['county'], x=py_sharks['wilson1912'], 
+  hue = py_sharks['beach'], linestyles=' ', markers = 'o')
+sns.pointplot(y=py_sharks['county'], x=py_sharks['wilson1916'], 
+  hue = py_sharks['beach'], linestyles=' ', markers = 'x')
+
+plt.show()
+```
+
+I guess that made Python look simpler than R...
