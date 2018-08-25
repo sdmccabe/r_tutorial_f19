@@ -483,7 +483,7 @@ import seaborn as sns
 py_sharks = pd.read_csv("https://sdmccabe.github.io/r_tutorial_f18/resources/shark.csv")
 py_ab_sharks = py_sharks.drop(py_sharks.index[6])
 py_m = smf.  \
-  ols("wilson1916 ~ wilson1912 + machine + beach", data = py_sharks).  \
+  ols("wilson1916 ~ wilson1912 + machine + beach", data = py_ab_sharks).  \
   fit()
 print(py_m.summary())
 ```
