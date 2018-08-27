@@ -35,6 +35,12 @@ library(tidyverse)
   * introduce how to visualize data in R
 
   It is **not** anything resembling a course on statistics and data science. 
+  
+  I am a petty dictator, and have added some goals about things I care about:
+  
+  * learn how to interpret a regression model
+  * learn why quantative social scientists answer questions they way they do
+
 
 ### Why sharks?
 
@@ -56,6 +62,21 @@ library(tidyverse)
 
 ![](resources/dfr.jpg)
 
+### The Discourse I
+
+![](resources/fowler_1.png)
+
+### The Discourse II
+
+![](resources/achen_1.png)
+
+### The Discourse III
+
+![](resources/achen_2.png)
+
+### The Discourse IV
+
+![](resources/fowler_2.png)
 
 ### Why R?
 
@@ -81,6 +102,8 @@ are so many `<-`s littered throughout the code, check it out.
 * dplyr and tidyr
 * readr and haven
 * devtools
+
+The `tidyverse` meta-package provides all the needed libraries, except for devtools.
 
 ### Preliminaries: RStudio
 RStudio is *the* IDE for R. Accept no substitutes.
@@ -367,6 +390,15 @@ ggplot(sharks, aes(y = county, color = (beach == 1))) +
 Aside from showing how easy it is to build up useful visualizations, this also starts to give us some substantive insight: all of the beach counties saw either no change or a decrease in Wilson vote share; no beach county saw a meainingful increase in Wilson support. That's interesting, at least, and some (weak) evidence for the claim that voters punished Wilson for the shark attacks.
 
 # Analyzing the data: Regression
+
+### Regression
+
+[![](resources/regression_ols.png)](https://www.kdnuggets.com/2016/04/regression-correlation-military-tutorial.html/2)
+
+### Regression
+
+[![](resources/regression_normal.jpg)](https://stats.libretexts.org/Textbook_Maps/Introductory_Statistics/Book%3A_Introductory_Statistics_(Shafer_and_Zhang)/10%3A_Correlation_and_Regression/10.3%3A_Modelling_Linear_Relationships_with_Randomness_Present)
+
 
 ### An introduction to formula syntax {.allowframebreaks}
 
