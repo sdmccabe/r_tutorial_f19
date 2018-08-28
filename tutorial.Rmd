@@ -258,7 +258,6 @@ gridExtra::grid.arrange(p1,p2,p3,p4,
 ### Indexing with `$`
 
 Columns of a data frame are indexed with the `$` operator, so we can pull out a single column like so:
-
 ```{r}
 sum(sharks$beach)
 ```
@@ -450,7 +449,6 @@ ggplot(sharks, aes(y = county, color = (beach == 1))) +
 
 ### A more complicated example II
 
-
 ```{r, eval = T, echo = F}
 ggplot(sharks, aes(y = county, color = (beach == 1))) + 
   geom_point(aes(x = wilson1912)) + # solid point
@@ -462,7 +460,6 @@ ggplot(sharks, aes(y = county, color = (beach == 1))) +
 ```
 
 ### A more complicated example III
-
 
 ```{r, echo = T, eval = F}
 ggplot(sharks, aes(y = county, color = (beach == 1))) + 
@@ -478,6 +475,14 @@ Aside from showing how easy it is to build up useful visualizations, this also s
 
 # Analyzing the data: Regression
 
+### Statistical models
+
+What is a statistical model? 
+
+1. a probability model ($Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$)
+2. a sampling model (independent samples from an infinite population)
+3. a statistical generating mechanism (the error term is normally distributed)
+
 ### Regression
 
 [![](resources/regression_ols.png)](https://www.kdnuggets.com/2016/04/regression-correlation-military-tutorial.html/2)
@@ -485,7 +490,6 @@ Aside from showing how easy it is to build up useful visualizations, this also s
 ### Regression
 
 [![](resources/regression_normal.jpg)](https://stats.libretexts.org/Textbook_Maps/Introductory_Statistics/Book%3A_Introductory_Statistics_(Shafer_and_Zhang)/10%3A_Correlation_and_Regression/10.3%3A_Modelling_Linear_Relationships_with_Randomness_Present)
-
 
 ### An introduction to formula syntax {.allowframebreaks}
 
