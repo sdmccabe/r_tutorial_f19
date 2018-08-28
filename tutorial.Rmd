@@ -168,6 +168,93 @@ So, we have a data frame containing 21 observations of 8 attributes.
 * **attack**: was there a shark attack in this county?
 * **coastal**: is the county located on the coast?
 
+### The columns, visualized
+
+```{r, echo = F, message=F, warning=F, }
+library(sf)
+nj <- read_sf("~/Downloads/shape/New_Jersey_Counties.shp")
+nj <- nj %>% left_join(sharks, by = c("COUNTY" = "county"))
+```
+
+```{r, echo = F}
+p1 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = wilson1912)) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_continuous() + 
+  labs(title = "wilson1912") +
+  theme(legend.position = "none")
+```
+```{r, echo = F}
+p2 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = wilson1916)) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_continuous() + 
+  labs(title = "wilson1916") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+p3 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = wilson1916 - wilson1912)) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_gradient2(low = "firebrick",
+                       mid = "lightgray",
+                       high = "midnightblue") + 
+  labs(title = "change") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+p4 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(attack))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "attack") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+p5 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(beach))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "beach") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+p6 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(coastal))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "coastal") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+p7 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(machine))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "machine") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+p8 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(mayhew))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "mayhew") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+gridExtra::grid.arrange(p1,p2,p3,p4,
+                        p5,p6,p7,p8,
+                        ncol = 4)
+```
+
 ### Indexing with `$`
 
 Columns of a data frame are indexed with the `$` operator, so we can pull out a single column like so:
