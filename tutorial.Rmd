@@ -174,6 +174,7 @@ So, we have a data frame containing 21 observations of 8 attributes.
 library(sf)
 nj <- read_sf("~/Downloads/shape/New_Jersey_Counties.shp")
 nj <- nj %>% left_join(sharks, by = c("COUNTY" = "county"))
+tidy_nj <- nj %>% mutate(change = wilson1916-wilson1912) %>% gather("var", "val", wilson1912:change)
 ```
 
 ```{r, echo = F}
@@ -184,6 +185,7 @@ p1 <- ggplot() +
   labs(title = "wilson1912") +
   theme(legend.position = "none")
 ```
+
 ```{r, echo = F}
 p2 <- ggplot() + 
   geom_sf(data = nj, aes(fill = wilson1916)) + 
@@ -330,20 +332,20 @@ These summary statistics are quite similar...
 ### Anscombe visualized I
 
 ```{r, echo = TRUE, eval=FALSE}
-p1 <- qplot(anscombe$x1, anscombe$y1)
-p2 <- qplot(anscombe$x2, anscombe$y2)
-p3 <- qplot(anscombe$x3, anscombe$y3)
-p4 <- qplot(anscombe$x4, anscombe$y4)
-gridExtra::grid.arrange(p1, p2, p3, p4)
+a1 <- qplot(anscombe$x1, anscombe$y1)
+a2 <- qplot(anscombe$x2, anscombe$y2)
+a3 <- qplot(anscombe$x3, anscombe$y3)
+a4 <- qplot(anscombe$x4, anscombe$y4)
+gridExtra::grid.arrange(a1, a2, a3, a4)
 ```
 ### Anscombe visualized II
 
 ```{r, echo = FALSE, eval=TRUE, fig.width=6, fig.height=3}
-p1 <- qplot(anscombe$x1, anscombe$y1)
-p2 <- qplot(anscombe$x2, anscombe$y2)
-p3 <- qplot(anscombe$x3, anscombe$y3)
-p4 <- qplot(anscombe$x4, anscombe$y4)
-gridExtra::grid.arrange(p1, p2, p3, p4)
+a1 <- qplot(anscombe$x1, anscombe$y1)
+a2 <- qplot(anscombe$x2, anscombe$y2)
+a3 <- qplot(anscombe$x3, anscombe$y3)
+a4 <- qplot(anscombe$x4, anscombe$y4)
+gridExtra::grid.arrange(a1, a2, a3, a4)
 ```
 
 ### Anscombe visualized III
@@ -550,6 +552,14 @@ Ask yourself:
 * What would qualify as a substantively meaningful result?
 * What is the interpretation of each of your coefficients?
 
+### The columns, visualized
+
+```{r, echo = F}
+gridExtra::grid.arrange(p1,p2,p3,p4,
+                        p5,p6,p7,p8,
+                        ncol = 4)
+```
+
 ### Achen and Bartels's model {.allowframebreaks}
 
 ```{r}
@@ -601,11 +611,98 @@ Some good resources on structuring and approaching a data analysis project:
 - [Leek (2015) - The elements of data analytic style](https://leanpub.com/datastyle)
 - [The tidyverse style guide](http://style.tidyverse.org/index.html)
 
-
 #### Networks in R
 Katya Ognyanova, one of David's former postdocs, has a good [introduction to network analysis in R](http://kateto.net/networks-r-igraph) with `igraph`. 
 
 # Appendix
+
+### Code for NJ plots {.allowframebreaks}
+
+```{r, eval = F, message=F, warning=F}
+library(sf)
+nj <- read_sf("~/Downloads/shape/New_Jersey_Counties.shp")
+nj <- nj %>% left_join(sharks, by = c("COUNTY" = "county"))
+```
+
+```{r, eval = F}
+p1 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = wilson1912)) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_continuous() + 
+  labs(title = "wilson1912") +
+  theme(legend.position = "none")
+```
+
+```{r, eval = F}
+p2 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = wilson1916)) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_continuous() + 
+  labs(title = "wilson1916") +
+  theme(legend.position = "none")
+```
+
+```{r, eval = F}
+p3 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = wilson1916 - wilson1912)) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_gradient2(low = "firebrick",
+                       mid = "lightgray",
+                       high = "midnightblue") + 
+  labs(title = "change") +
+  theme(legend.position = "none")
+```
+
+```{r, eval = F}
+p4 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(attack))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "attack") +
+  theme(legend.position = "none")
+```
+
+```{r, eval = F}
+p5 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(beach))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "beach") +
+  theme(legend.position = "none")
+```
+
+```{r, echo = F}
+p6 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(coastal))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "coastal") +
+  theme(legend.position = "none")
+```
+
+```{r, eval = F}
+p7 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(machine))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "machine") +
+  theme(legend.position = "none")
+```
+
+```{r, eval = F}
+p8 <- ggplot() + 
+  geom_sf(data = nj, aes(fill = as.factor(mayhew))) + 
+  coord_sf(ndiscr = 0) + 
+  scale_fill_discrete() + 
+  labs(title = "mayhew") +
+  theme(legend.position = "none")
+```
+
+```{r, eval = F}
+gridExtra::grid.arrange(p1,p2,p3,p4,
+                        p5,p6,p7,p8,
+                        ncol = 4)
+```
 
 ### Okay, but how do I do all this in Python? {.allowframebreaks}
 
