@@ -518,6 +518,27 @@ m <- lm(wilson1916 ~ wilson1912, data = sharks)
 summary(m)
 ```
 
+```{r, echo=F, message=F, results=F}
+library(stargazer)
+```
+
+```{r, results='asis'}
+stargazer(m, header = F, font.size = 'scriptsize')
+```
+
+```{r}
+broom::tidy(m) %>%
+  ggplot(aes(x = term)) + 
+  geom_point(aes(y = estimate)) + 
+  geom_errorbar(aes(ymin = estimate - 1.96 * std.error,
+                    ymax = estimate + 1.96 * std.error),
+                width = 0.1) + 
+  geom_hline(aes(yintercept = 0), 
+             linetype = 'dashed') + 
+  coord_flip() + 
+  theme_minimal()
+```
+
 ### An exercise: build your own shark attack model!
 
 So, with all this in hand, we can start doing the sort of research that gets our name in Vox.
