@@ -1,19 +1,19 @@
 ---
 title: "An introduction to data analysis in R, and also to shark attacks"
-shorttitle: "R Tutorial - NetSI Bootcamp 2018"
+shorttitle: "R Tutorial - NetSI Bootcamp 2019"
 author:
 - affiliation: Network Science Institute
   name: Stefan McCabe
   shortname: McCabe
-date: "August 2018"
+date: "September 2019"
 output:
+  html_document: default
   beamer_presentation:
     fig_height: 4
     fig_width: 8
     latex_engine: xelatex
     slide_level: 3
-    template: ~/.pandoc/templates/beamer.template
-  html_document: default
+    template: ~/.pandoc/templates/beamer-cousteau.template
 classoption: aspectratio=169
 ---
 # Overview
@@ -53,9 +53,13 @@ library(tidyverse)
 
 ### A quote from said article
 
->Consider the curious case of New Jersey in 1916: That summer, there was a string of deadly shark attacks along the Jersey Shore. As a result, Woodrow Wilson lost his home state in the presidential election.
+> Consider the curious case of New Jersey in 1916: That summer, there was a 
+> string of deadly shark attacks along the Jersey Shore. As a result, Woodrow 
+> Wilson lost his home state in the presidential election.
 
-> Why, you ask? Because the beachfront towns (which rely on tourism) were negatively impacted by the attacks. Though Wilson wasn’t responsible for the hungry sharks, he was the incumbent, and people vote against incumbents when things are bad. 
+> Why, you ask? Because the beachfront towns (which rely on tourism) were 
+> negatively impacted by the attacks. Though Wilson wasn’t responsible for the 
+> hungry sharks, he was the incumbent, and people vote against incumbents when things are bad. 
   
 
 ### *Democracy for Realists*
@@ -91,7 +95,7 @@ library(tidyverse)
 ### Preliminaries
 
 I gave a similar but drier tutorial last year; a copy of that document is
-[here](https://sdmccabe.github.io/r_tutorial_f18/resources/bootcamp_r_f17.html).
+[here](https://sdmccabe.github.io/r_tutorial_f19/resources/bootcamp_r_f17.html).
 If you have questions about R's bizarre and terrible type system, or why there
 are so many `<-`s littered throughout the code, check it out.
 
@@ -132,22 +136,28 @@ RStudio is *the* IDE for R. Accept no substitutes.
 
 ### Locating the data
 
-The data is taken from Fowler and Hall's [critique of an earlier paper on shark attacks](https://www.journals.uchicago.edu/doi/abs/10.1086/699244). I've converted their Stata files to CSV for convenience; they're on the tutorial website. 
+The data is taken from Fowler and Hall's [critique of an earlier paper on shark attacks](https://www.journals.uchicago.edu/doi/abs/10.1086/699244). I've 
+converted their Stata files to CSV for convenience; they're on the tutorial website. 
 
 ### `readr`
 
-To load a data file, `readr` provides a consistent interface across formats (and if `readr` can't load it, try `haven`). Thus, we'll use the library's `read_csv` function instead of base R's `read.csv`. 
+To load a data file, `readr` provides a consistent interface across formats 
+(and if `readr` can't load it, try `haven`). Thus, we'll use the library's 
+`read_csv` function instead of base R's `read.csv`. 
 
-(Note that `.` is valid in function and variable names in R; that is, `read.csv` is **not** a method of a class `read`.)
+(Note that `.` is valid in function and variable names in R; that is, `read.csv`
+is **not** a method of a class `read`.)
 
 ### Loading the sharks data
 
 ```{r}
-# sharks <- read_csv("~/git/r_tutorial_f18/resources/shark.csv")
-sharks <- read_csv("https://sdmccabe.github.io/r_tutorial_f18/resources/shark.csv")
+# sharks <- read_csv("~/git/r_tutorial_f19/resources/shark.csv")
+sharks <- read_csv("https://sdmccabe.github.io/r_tutorial_f19/resources/shark.csv")
 ```
 
-Note that `read_csv` treats URLs and file paths the same when reading in a file. Storing a local copy of a file is almost always preferable, but using URLs can be convenient in some cases (like this one).
+Note that `read_csv` treats URLs and file paths the same when reading in a file.
+Storing a local copy of a file is almost always preferable, but using URLs can
+be convenient in some cases (like this one).
 
 ### Examining the sharks data
 
@@ -170,7 +180,7 @@ So, we have a data frame containing 21 observations of 8 attributes.
 
 ### The columns, visualized
 
-```{r, echo = F, message=F, warning=F, }
+```{r, echo = F, message=F, warning=F}
 library(sf)
 nj <- read_sf("~/Downloads/shape/New_Jersey_Counties.shp")
 nj <- nj %>% left_join(sharks, by = c("COUNTY" = "county"))
@@ -259,7 +269,8 @@ gridExtra::grid.arrange(p1,p2,p3,p4,
 
 ### Indexing with `$`
 
-Columns of a data frame are indexed with the `$` operator, so we can pull out a single column like so:
+Columns of a data frame are indexed with the `$` operator, so we can pull out 
+a single column like so:
 ```{r}
 sum(sharks$beach)
 ```
@@ -280,13 +291,15 @@ sharks[1:4,] # row indexing, plus showing 1:4 to generate a
              # sequence from 1 to 4
 ```
 
-This can be handy for quick and dirty operations but is less explicit than the `$` operator. Note also that **R is one-indexed**.
+This can be handy for quick and dirty operations but is less explicit than
+the `$` operator. Note also that **R is one-indexed**.
 
 # Analyzing the data: Summary statistics
 
 ### Summary statistics
 
-R has most univariate and bivariate summary statistics built in, so they can be acessed rather simply:
+R has most univariate and bivariate summary statistics built in, so they can
+be acessed rather simply:
 
 ```{r}
 mean(sharks$wilson1912)
@@ -295,7 +308,8 @@ cor(sharks$wilson1912, sharks$wilson1916)
 
 ### The `summary()` function
 
-A particularly useful function here is `summary`, which can be applied across an entire data frame:
+A particularly useful function here is `summary`, which can be applied across
+an entire data frame:
 
 ```{r}
 summary(sharks)
@@ -304,7 +318,9 @@ summary(sharks)
 # Visualizing the data
 
 ### A cautionary tale I
-Summary statistics are helpful but are no substitute for a visual understanding of a dataset. To illustrate, consider [Anscombe's Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet). 
+Summary statistics are helpful but are no substitute for a visual understanding
+of a dataset. To illustrate, consider
+[Anscombe's Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet). 
 
 ```{r}
 anscombe <- datasets::anscombe # anscombe should already be in your namespace
@@ -350,23 +366,34 @@ gridExtra::grid.arrange(a1, a2, a3, a4)
 
 ### Anscombe visualized III
 
-... but the underlying data are quite different. Data visualization is your friend, and one of R's strengths.
+... but the underlying data are quite different. Data visualization is your
+friend, and one of R's strengths.
 
 ### `ggplot` versus "base R"
 
-I'm deliberately omitting discussion of so-called "base R" plotting---although it is frequently useful---in favor of emphasizing `ggplot2`'s feature set. The analogy is slightly inapt, but think of `ggplot2` as playing a similar role relative to base R graphics as `seaborn` plays to `matplotlib`. 
+I'm deliberately omitting discussion of so-called "base R" plotting---although
+it is frequently useful---in favor of emphasizing `ggplot2`'s feature set. The
+analogy is slightly inapt, but think of `ggplot2` as playing a similar role
+relative to base R graphics as `seaborn` plays to `matplotlib`. 
 
-I provided some discussion of base R plotting in last year's tutorial, so, again, check it out [here](https://sdmccabe.github.io/r_tutorial_f18/resources/bootcamp_r_f17.html).
+I provided some discussion of base R plotting in 2017's tutorial, so,
+again, check it out [here](https://sdmccabe.github.io/r_tutorial_f19/resources/bootcamp_r_f17.html).
 
 ### The structure of a `ggplot()` call
 
-Although simple plots---scatter plots and histograms, mostly---can be generated with the `qplot` function, most of the useful visualization features require wrapping your mind around `ggplot` and its associated functions. The goal of `ggplot2` is to implement a consistent *grammar of graphics*, and to that end most visualizations will have the same core elements:
+Although simple plots---scatter plots and histograms, mostly---can be generated 
+with the `qplot` function, most of the useful visualization features require 
+wrapping your mind around `ggplot` and its associated functions. The goal of 
+`ggplot2` is to implement a consistent *grammar of graphics*, and to that end 
+most visualizations will have the same core elements:
 
 * a **data** frame; that is, you want to have well-structured data ahead of time
 * an **aes**thetic mapping telling R which columns to include, what your x-axis is, etc.
 * various **geom** or **stat** functions to turn the mapped data into visualizations
 
-This sounds intimidating at first, but is relatively straightforward in practice. We already have the data, so once we figure out our mappings and geoms, we can make some plots.
+This sounds intimidating at first, but is relatively straightforward in 
+practice. We already have the data, so once we figure out our mappings and 
+geoms, we can make some plots.
 
 ### Histograms I
 
@@ -386,7 +413,9 @@ ggplot(data = sharks, mapping = aes(x = wilson1912)) +
 
 ### Fancier histograms I
 
-Not so bad. Similarly to how, with `matplotlib`, we might build up a plot with multiple method calls, here we chain function calls with the `+` operator. So we can make the histogram slightly nicer:
+Not so bad. Similarly to how, with `matplotlib`, we might build up a plot with 
+multiple method calls, here we chain function calls with the `+` operator. So 
+we can make the histogram slightly nicer:
 
 ```{r, eval = F, echo = T}
 ggplot(sharks, aes(x = wilson1912)) + 
@@ -410,7 +439,9 @@ ggplot(sharks, aes(x = wilson1912)) +
 
 ### Bivariate `geom`s 
 
-We can also use `geom`s like `geom_point` or `geom_smooth` to plot a bivariate relationship, like that between Wilson's 1912 and 1916 vote shares. How consistent are election returns from cycle to cycle?
+We can also use `geom`s like `geom_point` or `geom_smooth` to plot a bivariate 
+relationship, like that between Wilson's 1912 and 1916 vote shares. How 
+consistent are election returns from cycle to cycle?
 
 ```{r, echo = T, eval = F}
 ggplot(sharks, aes(x = wilson1912, y = wilson1916)) + 
@@ -422,7 +453,11 @@ ggplot(sharks, aes(x = wilson1912, y = wilson1916)) +
 ```
 
 
-Here we are using two `geom`s in one plot; there's no limitation (except pragmatic ones) on the number you can use. So we used `geom_point` to draw a scatter plot and then `geom_smooth` to fit a straight line summarizing those data points (the additional parameter `method = "lm"` indicates to use a linear model instead of the potentially nonlinear method used by default).
+Here we are using two `geom`s in one plot; there's no limitation (except 
+pragmatic ones) on the number you can use. So we used `geom_point` to draw a 
+scatter plot and then `geom_smooth` to fit a straight line summarizing those 
+data points (the additional parameter `method = "lm"` indicates to use a 
+linear model instead of the potentially nonlinear method used by default).
 
 ### Bivariate `geom`s II
 
@@ -473,7 +508,12 @@ ggplot(sharks, aes(y = county, color = (beach == 1))) +
   theme_minimal()
 ```
 
-Aside from showing how easy it is to build up useful visualizations, this also starts to give us some substantive insight: all of the beach counties saw either no change or a decrease in Wilson vote share; no beach county saw a meainingful increase in Wilson support. That's interesting, at least, and some (weak) evidence for the claim that voters punished Wilson for the shark attacks.
+Aside from showing how easy it is to build up useful visualizations, this also 
+starts to give us some substantive insight: all of the beach counties saw 
+either no change or a decrease in Wilson vote share; no beach county saw a 
+meainingful increase in Wilson support. That's interesting, at least, and 
+some (weak) evidence for the claim that voters punished Wilson for the 
+shark attacks.
 
 # Analyzing the data: Regression
 
@@ -501,7 +541,8 @@ Most statistical modeling functions in R use some variant of *formula syntax*:
 Y ~ X
 ```
 
-Often, `X` will include multiple variables of interest, and potentially transformations of those variables or interactions bewteen variables. 
+Often, `X` will include multiple variables of interest, and potentially 
+transformations of those variables or interactions bewteen variables. 
 
 ```{r, eval = F}
 Y ~ X1 + X2 + X1:X2 + I(X1^2) # transformations are nested in I()
@@ -509,7 +550,9 @@ Y ~ X1*X2 + I(X1^2) # this expresses the same equation
 Y ~ X1*X2 + I(X1^2) - 1 # as above, but drop the intercept term
 ```
 
-So, applying this to our example, we might want to regress Wilson's 1916 vote share on his 1912 vote share and see how much of the variance is explained by a simple **l**inear **m**odel.
+So, applying this to our example, we might want to regress Wilson's 1916 vote 
+share on his 1912 vote share and see how much of the variance is explained by a 
+simple **l**inear **m**odel.
 
 ```{r}
 m <- lm(wilson1916 ~ wilson1912, data = sharks)
@@ -543,7 +586,8 @@ broom::tidy(m) %>%
 
 ### An exercise: build your own shark attack model!
 
-So, with all this in hand, we can start doing the sort of research that gets our name in Vox.
+So, with all this in hand, we can start doing the sort of 
+research that gets our name in Vox.
 
 Ask yourself:
 
@@ -573,7 +617,7 @@ summary(ab_model)
 
 ### References on shark attacks {.allowframebreaks}
 
-Shark attacks were a big story on Political Science Twitter this summer. 
+Shark attacks were a big story on Political Science Twitter in summer 2018. 
 
 - [*Democracy for Realists* (Achen and Bartels 2016)](https://www.amazon.com/Democracy-Realists-Elections-Responsive-Government/dp/0691178240) is the canonical reference for the original shark attack claim, though it was first presented at a conference over a decade earlier.
 - [Fowler and Hall (2018a)](https://www.journals.uchicago.edu/doi/abs/10.1086/699244) present a critique of the result; the data used here is drawn from their critique.
@@ -584,7 +628,9 @@ Shark attacks were a big story on Political Science Twitter this summer.
 ### References on R {.allowframebreaks}
 
 #### Cheat sheets
-The RStudio website has some terrific cheat sheets that I encourage everyone to bookmark (especially the data wrangling one, which I have to reference every time I use tidyr):
+The RStudio website has some terrific cheat sheets that I encourage everyone to 
+bookmark (especially the data wrangling one, which I have to reference every 
+time I use tidyr):
 
 - [Base R](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
 - [ggplot2](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
@@ -593,7 +639,8 @@ The RStudio website has some terrific cheat sheets that I encourage everyone to 
 - [Data Transformation](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 
 #### Working in R
-If you're doing large-scale work in R, especially involving package development, here are some useful sources on development and R internals:
+If you're doing large-scale work in R, especially involving package development, 
+here are some useful sources on development and R internals:
 
 - The companion website to Wickham's [Advanced R](http://adv-r.had.co.nz/) book.
 - The companion website to Wickham's [R Packages](http://r-pkgs.had.co.nz/) book.
@@ -612,7 +659,9 @@ Some good resources on structuring and approaching a data analysis project:
 - [The tidyverse style guide](http://style.tidyverse.org/index.html)
 
 #### Networks in R
-Katya Ognyanova, one of David's former postdocs, has a good [introduction to network analysis in R](http://kateto.net/networks-r-igraph) with `igraph`. 
+Katya Ognyanova, one of David's former postdocs, has a 
+good [introduction to network analysis in R](http://kateto.net/networks-r-igraph) 
+with `igraph`. 
 
 # Appendix
 
@@ -708,7 +757,8 @@ gridExtra::grid.arrange(p1,p2,p3,p4,
 
 ```{r, echo = F}
 library(reticulate)
-reticulate::use_condaenv("base")
+#reticulate::use_condaenv("base")
+reticulate::use_python("~/.pyenv/shims/python")
 ```
 
 ```{python}
@@ -721,7 +771,7 @@ import seaborn as sns
 ```
 
 ```{python}
-py_sharks = pd.read_csv("https://sdmccabe.github.io/r_tutorial_f18/resources/shark.csv")
+py_sharks = pd.read_csv("https://sdmccabe.github.io/r_tutorial_f19/resources/shark.csv")
 py_ab_sharks = py_sharks.drop(py_sharks.index[6])
 py_m = smf.  \
   ols("wilson1916 ~ wilson1912 + machine + beach", data = py_ab_sharks).  \
