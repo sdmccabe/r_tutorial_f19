@@ -1,19 +1,20 @@
 ---
 title: "An introduction to data analysis in R, and also to shark attacks"
-shorttitle: "R Tutorial - NetSI Bootcamp 2019"
 author:
 - affiliation: Network Science Institute
   name: Stefan McCabe
   shortname: McCabe
 date: "September 2019"
 output:
-  html_document: default
   beamer_presentation:
     fig_height: 4
     fig_width: 8
     latex_engine: xelatex
     slide_level: 3
     template: ~/.pandoc/templates/beamer-cousteau.template
+  html_document: default
+  pdf_document: default
+shorttitle: R Tutorial - NetSI Bootcamp 2019
 classoption: aspectratio=169
 ---
 # Overview
