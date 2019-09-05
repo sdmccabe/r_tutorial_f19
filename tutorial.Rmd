@@ -151,7 +151,7 @@ is **not** a method of a class `read`.)
 
 ### Loading the sharks data
 
-```{r}
+```{r, echo=-1}
 # sharks <- read_csv("~/git/r_tutorial_f19/resources/shark.csv")
 sharks <- read_csv("https://sdmccabe.github.io/r_tutorial_f19/resources/shark.csv")
 ```
